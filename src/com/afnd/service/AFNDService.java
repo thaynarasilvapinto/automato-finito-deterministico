@@ -7,6 +7,34 @@ import java.util.List;
 
 public class AFNDService {
 
+
+    AFNDRuleService afndRuleService = new AFNDRuleService();
+
+    private void processSequence(List<Character> sequence, String currentState, List<AFNDRule> rules, int position) throws Exception {
+
+        position = afndRuleService.injectList(position);
+        int count = 0;
+
+        for (char currentSymbol : sequence) {
+
+            count = count + 1;
+
+            AFNDRule applicableRule = afndRuleService.getApplicableRule(rules, currentState, currentSymbol);
+
+            if(applicableRule.getTargetStates().size() > 1) { //verifica a regra e aplica dentro de uma nova rule
+                for (String targetStates : applicableRule.getTargetStates()) {
+                    processSequence(
+                            sequence.subList(count, sequence.size()),
+                            targetStates,
+                            rules,
+                            position); //recursão
+                }
+            }
+//            afndRuleService.addCoveredRule(applicableRule, position);
+//            currentState = afndRuleService.applyRule(applicableRule);
+        }
+    }
+
     public void validateAutomaton(AFNDAutomaton automaton) throws Exception {
         List<String> states = automaton.getStates();
         List<String> finalStates = automaton.getFinalStates();
