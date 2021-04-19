@@ -5,19 +5,19 @@
     {
       "estadoPartida": "S1",
       "simbolo": "0",
-      "estadosDestino": "S2"
+      "estadoDestino": "S2"
     },{
       "estadoPartida": "S1",
       "simbolo": "1",
-      "estadosDestino": "S1"
+      "estadoDestino": "S1"
     },{
       "estadoPartida": "S2",
       "simbolo": "0",
-      "estadosDestino": "S1"
+      "estadoDestino": "S1"
     },{
       "estadoPartida": "S2",
       "simbolo": "1",
-      "estadosDestino": "S2"
+      "estadoDestino": "S2"
     }
   ],
   "estadoInicial": "S1",

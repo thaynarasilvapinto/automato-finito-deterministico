@@ -79,9 +79,9 @@ public class InitialView extends JFrame implements ActionListener {
                             "   \"estadoInicial\": \"qx\",\n" +
                             "   \"estadosFinais\": [\"qx\", \"qy\"],\n" +
                             "   \"regras\": [\n" +
-                            "       {\"estadoPartida\":\"qx\", \"simbolo\":\"1\", \"estadoDestino\":\"q1\"},\n" +
+                            "       {\"estadoPartida\":\"qx\", \"simbolo\":\"1\", \"estadoDestomp\":\"q1\"},\n" +
                             "       ...,\n" +
-                            "       {\"estadoPartida\":\"qy\", \"simbolo\":\"0\", \"estadoDestino\":\"q0\"}\n" +
+                            "       {\"estadoPartida\":\"qy\", \"simbolo\":\"0\", \"estadoDestomp\":\"q0\"}\n" +
                             "   ]\n" +
                             "}\n\n" +
                             "Posteriormente, basta adicionar as cadeias que deseja testar, tendo a possibilidade de" +
