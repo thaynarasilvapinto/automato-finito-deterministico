@@ -5,27 +5,27 @@
     {
       "estadoPartida": "q0",
       "simbolo": "0",
-      "estadosDestino": "q1"
+      "estadoDestino": "q1"
     }, {
       "estadoPartida": "q0",
       "simbolo": "1",
-      "estadosDestino": "q0"
+      "estadoDestino": "q0"
     }, {
       "estadoPartida": "q1",
       "simbolo": "0",
-      "estadosDestino": "q1"
+      "estadoDestino": "q1"
     }, {
       "estadoPartida": "q1",
       "simbolo": "1",
-      "estadosDestino": "q2"
+      "estadoDestino": "q2"
     }, {
       "estadoPartida": "q2",
       "simbolo": "0",
-      "estadosDestino": "q2"
+      "estadoDestino": "q2"
     }, {
       "estadoPartida": "q2",
       "simbolo": "1",
-      "estadosDestino": "q2"
+      "estadoDestino": "q2"
     }
   ],
   "estadoInicial": "q0",
