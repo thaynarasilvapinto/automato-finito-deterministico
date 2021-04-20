@@ -52,7 +52,7 @@ public class AFNDRuleService {
             return ruleRepository.size();
         }
         RuleAFNDRepository newRepository = new RuleAFNDRepository();
-        newRepository.coveredRules.addAll(ruleRepository.get(position).coveredRules);
+        newRepository.coveredRules.addAll(ruleRepository.get(position-1).coveredRules);
         ruleRepository.add(newRepository);
         return ruleRepository.size();
     }

@@ -2,7 +2,10 @@ package com.afnd.service;
 
 import com.afnd.data.AFNDAutomaton;
 import com.afnd.data.AFNDRule;
+import com.afnd.repository.RuleAFNDRepository;
+import com.afnd.view.InitialView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AFNDService {
@@ -10,7 +13,7 @@ public class AFNDService {
 
     AFNDRuleService afndRuleService = new AFNDRuleService();
 
-    private void processSequence(List<Character> sequence, String currentState, List<AFNDRule> rules, int position) throws Exception {
+    public void processSequence(List<Character> sequence, String currentState, List<AFNDRule> rules, int position) throws Exception {
 
         position = afndRuleService.injectList(position);
         int count = 0;
@@ -20,7 +23,11 @@ public class AFNDService {
             count = count + 1;
 
             AFNDRule applicableRule = afndRuleService.getApplicableRule(rules, currentState, currentSymbol);
-
+            System.out.println("-------------");
+            System.out.println(applicableRule.getSourceState());
+            System.out.println(applicableRule.getSymbol());
+            System.out.println(applicableRule.getTargetStates());
+            System.out.println("-------------");
             if(applicableRule.getTargetStates().size() > 1) { //verifica a regra e aplica dentro de uma nova rule
                 for (String targetStates : applicableRule.getTargetStates()) {
                     processSequence(
