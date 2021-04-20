@@ -76,7 +76,7 @@ public class AFDAutomaton {
             if (finalStates.get(i).equals("")) {
                 outputFinals.append("qV");
             } else {
-                outputFinals.append(states.get(i));
+                outputFinals.append(finalStates.get(i));
             }
             if (i != finalStates.size()-1) {
                 outputFinals.append(", ");
