@@ -7,7 +7,6 @@ import com.afnd.service.AFNDService;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class AFNDStepView extends JFrame{
@@ -40,7 +39,7 @@ public class AFNDStepView extends JFrame{
         setLayout(null);
 
         JLabel text = new JLabel("AUTÔMATO FINITO NÃO DETERMINÍSTICO");
-        text.setBounds(70, 10, 250, 30);
+        text.setBounds(70, 10, 280, 30);
         add(text);
 
         panel.setBounds(20, 50, 360, 150);
