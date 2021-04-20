@@ -27,7 +27,7 @@ public class InputFileService {
         if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
             try {
                 return parseFile(fileChooser.getSelectedFile().getAbsolutePath());
-            } catch (IOException | ParseException | NullPointerException e) {
+            } catch (Exception e) {
                 throw new Exception("Arquivo inválido!");
             }
         }

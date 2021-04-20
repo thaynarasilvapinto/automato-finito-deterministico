@@ -1,6 +1,8 @@
 package com.afnd.view;
 
+import com.afnd.data.AFDAutomaton;
 import com.afnd.data.AFNDAutomaton;
+import com.afnd.service.AFNDConverter;
 import com.afnd.service.AFNDService;
 import com.afnd.service.InputFileService;
 
@@ -60,7 +62,9 @@ public class InitialView extends JFrame implements ActionListener {
             try {
                 AFNDAutomaton afndAutomaton = inputFileService.parseAutomaton();
                 afndService.validateAutomaton(afndAutomaton);
-
+                AFDAutomaton afdAutomaton = new AFNDConverter(afndAutomaton).mapToAFD();
+                dispose();
+                new ComparisonView(afdAutomaton, afndAutomaton);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             }

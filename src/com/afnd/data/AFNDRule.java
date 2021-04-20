@@ -24,4 +24,9 @@ public class AFNDRule {
     public List<String> getTargetStates() {
         return targetState;
     }
+
+    @Override
+    public String toString() {
+        return sourceState + " \u00D7 " + symbol + " \u2192 " + targetState;
+    }
 }
