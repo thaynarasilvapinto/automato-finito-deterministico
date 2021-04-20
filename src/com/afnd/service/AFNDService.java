@@ -39,13 +39,17 @@ public class AFNDService {
 
             afndRuleService.addCoveredRule(applicableRule);
 
-            if(applicableRule.getTargetStates().size() > 1) { //verifica a regra e aplica dentro de uma nova rule
+            if(applicableRule.getTargetStates().size() > 1) {
                 for (String targetStates : applicableRule.getTargetStates()) {
                     processSequence(
                             sequence.subList(aux, sequence.size()),
                             targetStates,
                             rules,
                             finalStates); //recursão
+                }
+            }else{
+                if(applicableRule.getTargetStates().size() == 1) {
+                    currentState = applicableRule.getTargetStates().get(0);
                 }
             }
         }
