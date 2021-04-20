@@ -39,7 +39,7 @@ public class AFNDService {
         return sequenceValidate;
     }
 
-    public void processSequence(List<Character> sequence,
+    private void processSequence(List<Character> sequence,
                                 String currentState,
                                 List<AFNDRule> rules,
                                 List<String> finalStates) throws Exception {
