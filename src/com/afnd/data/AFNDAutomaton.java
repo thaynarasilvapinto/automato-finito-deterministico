@@ -45,10 +45,21 @@ public class AFNDAutomaton {
             outputRules.append("    ").append(rule.toString()).append(",\n");
         }
         outputRules.append("]");
+
+        StringBuilder outputAlphabet = new StringBuilder();
+        outputAlphabet.append("[");
+        for(int i = 0; i < alphabet.length(); i++) {
+            outputAlphabet.append(alphabet.charAt(i));
+            if (i != alphabet.length()-1) {
+                outputAlphabet.append(", ");
+            }
+        }
+        outputAlphabet.append("]");
+
         return "Q: " + states + ",\n" +
-                "\u03A3: " + alphabet + ",\n" +
-                "\u03B4: " + outputRules.toString() + ",\n" +
-                "q0: " + initialState + ",\n" +
+                "\u03A3: " + outputAlphabet + ",\n" +
+                "\u03B4: " + outputRules + ",\n" +
+                "q\u2080: " + initialState + ",\n" +
                 "F: " + finalStates + "\n";
     }
 }

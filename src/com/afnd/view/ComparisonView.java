@@ -13,25 +13,24 @@ public class ComparisonView extends JFrame {
     JButton changeButton = new JButton("TROCAR AUTOMATO");
     JTextField plvField = new JTextField();
     JLabel plv = new JLabel("PALAVRA:");
-    JLabel afd = new JLabel("AFD");
     JLabel afnd = new JLabel("AFND");
+    JLabel afd = new JLabel("AFD");
 
 
     public ComparisonView(AFDAutomaton afdAutomaton, AFNDAutomaton afndAutomaton) {
-        setTitle("AFD x AFND");
         setSize(800, 580);
         setVisible(true);
         setLayout(null);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        afd.setBounds(180, 10, 230, 30);
-        afd.setForeground(Color.blue);
-        add(afd);
-
-        afnd.setBounds(580, 10, 220, 30);
+        afnd.setBounds(180, 10, 230, 30);
         afnd.setForeground(Color.blue);
         add(afnd);
+
+        afd.setBounds(580, 10, 220, 30);
+        afd.setForeground(Color.blue);
+        add(afd);
 
         plvField.setBounds(95, 470, 590, 20);
         plvField.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
@@ -48,13 +47,13 @@ public class ComparisonView extends JFrame {
         changeButton.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
         add(changeButton);
 
-        JScrollPane painelAFD = new JScrollPane(buildTextArea(afdAutomaton.toString()));
-        painelAFD.setBounds(20, 40, 360, 400);
-        add(painelAFD);
+        JScrollPane paneAFND = new JScrollPane(buildTextArea(afndAutomaton.toString()));
+        paneAFND.setBounds(20, 40, 360, 400);
+        add(paneAFND);
 
-        JScrollPane painelAFND = new JScrollPane(buildTextArea(afndAutomaton.toString()));
-        painelAFND.setBounds(420, 40, 360, 400);
-        add(painelAFND);
+        JScrollPane paneAFD = new JScrollPane(buildTextArea(afdAutomaton.toString()));
+        paneAFD.setBounds(420, 40, 360, 400);
+        add(paneAFD);
 
         setValidateButton();
         setChangeButton();
