@@ -26,13 +26,14 @@ public class AFDStepView extends JFrame{
     int sequenceIndex = 0;
     boolean validSequenceFlag;
 
-    public AFDStepView(AFDRuleRepository ruleRepository, AFDAutomaton automaton, String sequence) {
+    public AFDStepView(AFDRuleRepository ruleRepository, AFDAutomaton automaton, String sequence, int x, int y) {
         this.sequence = sequence;
         this.ruleService = new AFDRuleService(ruleRepository);
         this.automatonService = new AFDService(ruleRepository);
         this.automaton = automaton;
         processSequence();
 
+        setLocation(x, y);
         setVisible(true);
         setResizable(false);
         setSize(400, 300);

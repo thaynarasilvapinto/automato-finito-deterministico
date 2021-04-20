@@ -25,19 +25,21 @@ public class AFNDStepView extends JFrame{
     int sequenceIndex = 0;
     boolean validSequenceFlag;
 
-    public AFNDStepView(AFNDAutomaton automaton, String sequence) {
+    public AFNDStepView(AFNDAutomaton automaton, String sequence, int x, int y) {
+
         this.sequence = sequence;
         this.automatonService = new AFNDService();
         this.automaton = automaton;
 
         processSequence();
 
+        setLocation(x, y);
         setVisible(true);
         setResizable(false);
         setSize(400, 300);
         setLayout(null);
 
-        JLabel text = new JLabel("AUTÔMATO NÃO FINITO DETERMINÍSTICO");
+        JLabel text = new JLabel("AUTÔMATO FINITO NÃO DETERMINÍSTICO");
         text.setBounds(70, 10, 250, 30);
         add(text);
 
@@ -68,15 +70,7 @@ public class AFNDStepView extends JFrame{
 
     private void processSequence() {
         try {
-            List<Character> sequenceRequest = new ArrayList<>();
-            for (char item: sequence.toCharArray()) {
-                sequenceRequest.add(item);
-            }
-            automatonService.processSequence(sequenceRequest,
-                    automaton.getInitialState(),
-                    automaton.getRules(),
-                    automaton.getFinalStates());
-
+            automatonService.belongsToLanguage(sequence, automaton);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }

@@ -82,9 +82,9 @@ public class ComparisonView extends JFrame {
             try {
                 String sequence = wordField.getText();
                 validateSequence(afdAutomaton.getAlphabet(), sequence);
-                new AFDStepView(new AFDRuleRepository(), afdAutomaton, sequence);
+                new AFDStepView(new AFDRuleRepository(), afdAutomaton, sequence, 900, 400);
 
-                new AFNDStepView(afndAutomaton, sequence);
+                new AFNDStepView(afndAutomaton, sequence, 500, 400);
             } catch (Exception exception) {
                 JOptionPane.showMessageDialog(this, exception.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             }

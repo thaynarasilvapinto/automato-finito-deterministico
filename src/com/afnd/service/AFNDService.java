@@ -3,6 +3,7 @@ package com.afnd.service;
 import com.afnd.data.AFNDAutomaton;
 import com.afnd.data.AFNDRule;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AFNDService {
@@ -10,6 +11,25 @@ public class AFNDService {
 
     private final AFNDRuleService afndRuleService = new AFNDRuleService();
     private boolean sequenceValidate = false;
+
+    public void belongsToLanguage(String sequence, AFNDAutomaton automaton) throws Exception {
+        List<Character> sequenceRequest = new ArrayList<>();
+
+        for (char item: sequence.toCharArray()) {
+            sequenceRequest.add(item);
+        }
+
+        if(sequenceRequest.isEmpty()){
+            List<String> initialState = new ArrayList<>();
+            initialState.add(automaton.getInitialState());
+            sequenceValidate = isAcceptable(initialState, automaton.getFinalStates());
+        }else{
+            processSequence(sequenceRequest,
+                    automaton.getInitialState(),
+                    automaton.getRules(),
+                    automaton.getFinalStates());
+        }
+    }
 
     public List<AFNDRule> getStackSequence(){
         return afndRuleService.ruleRepository.coveredRules;
@@ -41,15 +61,19 @@ public class AFNDService {
 
             if(applicableRule.getTargetStates().size() > 1) {
                 for (String targetStates : applicableRule.getTargetStates()) {
-                    processSequence(
-                            sequence.subList(aux, sequence.size()),
-                            targetStates,
-                            rules,
-                            finalStates); //recursão
+                    if(sequence.subList(aux, sequence.size()).size() != 0){
+                        processSequence(
+                                sequence.subList(aux, sequence.size()),
+                                targetStates,
+                                rules,
+                                finalStates); //recursão
+                    }
                 }
             }else{
                 if(applicableRule.getTargetStates().size() == 1) {
                     currentState = applicableRule.getTargetStates().get(0);
+                }else if (applicableRule.getTargetStates().isEmpty()){
+                    break;
                 }
             }
         }
