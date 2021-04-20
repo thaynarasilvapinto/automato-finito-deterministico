@@ -1,0 +1,50 @@
+package com.afnd.service;
+
+import com.afnd.data.AFDAutomaton;
+import com.afnd.data.AFDRule;
+import com.afnd.repository.AFDRuleRepository;
+
+import java.util.List;
+
+public class AFDService {
+
+    AFDRuleService ruleService;
+
+    public AFDService(AFDRuleRepository ruleRepository) {
+        this.ruleService = new AFDRuleService(ruleRepository);
+    }
+
+    public boolean belongsToLanguage(String sequence, AFDAutomaton M) throws Exception {
+        String endState = processSequence(sequence, M.getInitialState(), M.getRules());
+        return isAcceptableState(endState, M.getFinalStates());
+    }
+
+    private String processSequence(String sequence, String initialState, List<AFDRule> rules) throws Exception {
+        String currentState = initialState;
+        for (char currentSymbol : sequence.toCharArray()) {
+            AFDRule applicableRule = ruleService.getApplicableRule(rules, currentState, currentSymbol);
+            ruleService.addCoveredRule(applicableRule);
+            currentState = ruleService.applyRule(applicableRule);
+        }
+        return currentState;
+    }
+
+    private boolean isAcceptableState(String state, List<String> acceptableStates) {
+        return acceptableStates.contains(state);
+    }
+
+    public void validateSequence(String alphabet, String sequence) throws Exception {
+        for (int i = 0; i < sequence.length(); i++) {
+            boolean found = false;
+            for (int j = 0; j < alphabet.length(); j++) {
+                if (sequence.charAt(i) == alphabet.charAt(j)) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                throw new Exception("Elementos da cadeia devem pertencer ao alfabeto!");
+            }
+        }
+    }
+}

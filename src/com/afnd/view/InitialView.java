@@ -63,7 +63,8 @@ public class InitialView extends JFrame implements ActionListener {
                 AFNDAutomaton afndAutomaton = inputFileService.parseAutomaton();
                 afndService.validateAutomaton(afndAutomaton);
                 AFDAutomaton afdAutomaton = new AFNDConverter(afndAutomaton).mapToAFD();
-                System.out.println(afdAutomaton);
+                dispose();
+                new ComparisonView(afdAutomaton, afndAutomaton);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             }
