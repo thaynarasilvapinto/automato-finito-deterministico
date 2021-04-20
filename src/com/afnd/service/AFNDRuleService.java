@@ -9,7 +9,7 @@ import java.util.List;
 
 public class AFNDRuleService {
 
-    List<RuleAFNDRepository> ruleRepository = new ArrayList<>();
+    RuleAFNDRepository ruleRepository = new RuleAFNDRepository();
 
     public AFNDRule getApplicableRule(List<AFNDRule> rules, String currentState, char currentSymbol) throws Exception {
         return rules.stream()
@@ -28,8 +28,8 @@ public class AFNDRuleService {
                 .count();
     }
 
-    public void addCoveredRule(AFDRule applicableRule, int position) {
-        ruleRepository.get(position).coveredRules.add(applicableRule);
+    public void addCoveredRule(AFNDRule applicableRule) {
+        ruleRepository.coveredRules.add(applicableRule);
     }
 
     public String applyRule(AFDRule applicableRule) {
@@ -37,23 +37,11 @@ public class AFNDRuleService {
     }
 
 
-    public List<AFDRule> getCoveredRules(int position) {
-        return ruleRepository.get(position).coveredRules;
+    public List<AFNDRule> getCoveredRules(int position) {
+        return ruleRepository.coveredRules;
     }
 
     public void cleanCoveredRules(int position) {
-        ruleRepository.get(position).coveredRules = new ArrayList<>();
-    }
-
-    public int injectList(int position){
-        if(ruleRepository.isEmpty()){
-            RuleAFNDRepository newRepository = new RuleAFNDRepository();
-            ruleRepository.add(newRepository);
-            return ruleRepository.size();
-        }
-        RuleAFNDRepository newRepository = new RuleAFNDRepository();
-        newRepository.coveredRules.addAll(ruleRepository.get(position-1).coveredRules);
-        ruleRepository.add(newRepository);
-        return ruleRepository.size();
+        ruleRepository.coveredRules = new ArrayList<>();
     }
 }

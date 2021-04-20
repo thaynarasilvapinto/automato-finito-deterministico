@@ -2,25 +2,34 @@ package com.afnd.service;
 
 import com.afnd.data.AFNDAutomaton;
 import com.afnd.data.AFNDRule;
-import com.afnd.repository.RuleAFNDRepository;
-import com.afnd.view.InitialView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class AFNDService {
 
 
-    AFNDRuleService afndRuleService = new AFNDRuleService();
+    private final AFNDRuleService afndRuleService = new AFNDRuleService();
+    private boolean sequenceValidate = false;
 
-    public void processSequence(List<Character> sequence, String currentState, List<AFNDRule> rules, int position) throws Exception {
+    public List<AFNDRule> getStackSequence(){
+        return afndRuleService.ruleRepository.coveredRules;
+    }
 
-        position = afndRuleService.injectList(position);
-        int count = 0;
+    public Boolean getSequenceValidate(){
+        return sequenceValidate;
+    }
+
+    public void processSequence(List<Character> sequence,
+                                String currentState,
+                                List<AFNDRule> rules,
+                                int position,
+                                List<String> finalStates) throws Exception {
+
+        int aux = 0;
 
         for (char currentSymbol : sequence) {
 
-            count = count + 1;
+            aux = aux + 1;
 
             AFNDRule applicableRule = afndRuleService.getApplicableRule(rules, currentState, currentSymbol);
             System.out.println("-------------");
@@ -28,19 +37,38 @@ public class AFNDService {
             System.out.println(applicableRule.getSymbol());
             System.out.println(applicableRule.getTargetStates());
             System.out.println("-------------");
+
+            afndRuleService.addCoveredRule(applicableRule);
+
             if(applicableRule.getTargetStates().size() > 1) { //verifica a regra e aplica dentro de uma nova rule
                 for (String targetStates : applicableRule.getTargetStates()) {
                     processSequence(
-                            sequence.subList(count, sequence.size()),
+                            sequence.subList(aux, sequence.size()),
                             targetStates,
                             rules,
-                            position); //recursão
+                            position,
+                            finalStates); //recursão
                 }
             }
-//            afndRuleService.addCoveredRule(applicableRule, position);
-//            currentState = afndRuleService.applyRule(applicableRule);
         }
+        isAcceptableState(finalStates);
+        System.out.println("-------------");
+        System.out.println(sequenceValidate);
+        System.out.println("-------------");
     }
+
+    private void isAcceptableState(List<String> finalStates){
+        if(!sequenceValidate)
+            sequenceValidate = isAcceptable(getStackSequence().get(getStackSequence().size()-1).getTargetStates(), finalStates);
+    }
+
+    private boolean isAcceptable(List<String> state, List<String> acceptableStates) {
+        for (String item: state) {
+            return acceptableStates.contains(item);
+        }
+        return false;
+    }
+
 
     public void validateAutomaton(AFNDAutomaton automaton) throws Exception {
         List<String> states = automaton.getStates();

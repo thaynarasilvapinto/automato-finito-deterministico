@@ -1,8 +1,6 @@
 package com.afnd.service;
 
-import com.afd.repository.RuleRepository;
 import com.afnd.data.AFNDRule;
-import com.afnd.repository.RuleAFNDRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,10 +40,17 @@ public class Teste {
 
         List<Character> sequence = new ArrayList<>();
         sequence.add('0');
-        sequence.add('0');
         sequence.add('1');
 
         AFNDService service = new AFNDService();
-        service.processSequence(sequence, "q0", rules, 0);
+
+
+        List<String> finalStates = new ArrayList<>();
+        finalStates.add("q3");
+
+
+        service.processSequence(sequence, "q0", rules, 0, finalStates);
+        List<AFNDRule> response = service.getStackSequence();
+        System.out.println(service.getSequenceValidate());
     }
 }
