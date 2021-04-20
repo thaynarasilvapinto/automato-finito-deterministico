@@ -2,22 +2,26 @@ package com.afnd.view;
 
 import com.afnd.data.AFDAutomaton;
 import com.afnd.data.AFNDAutomaton;
+import com.afnd.repository.AFDRuleRepository;
 
 import javax.swing.*;
 import java.awt.*;
-
 
 public class ComparisonView extends JFrame {
 
     JButton validateButton = new JButton("VALIDAR");
     JButton changeButton = new JButton("TROCAR AUTOMATO");
-    JTextField plvField = new JTextField();
-    JLabel plv = new JLabel("PALAVRA:");
+    JTextField wordField = new JTextField();
+    JLabel wordLabel = new JLabel("PALAVRA:");
     JLabel afnd = new JLabel("AFND");
     JLabel afd = new JLabel("AFD");
 
+    AFDAutomaton afdAutomaton;
+    AFNDAutomaton afndAutomaton;
 
     public ComparisonView(AFDAutomaton afdAutomaton, AFNDAutomaton afndAutomaton) {
+        this.afdAutomaton = afdAutomaton;
+        this.afndAutomaton = afndAutomaton;
         setSize(800, 580);
         setVisible(true);
         setLayout(null);
@@ -32,12 +36,12 @@ public class ComparisonView extends JFrame {
         afd.setForeground(Color.blue);
         add(afd);
 
-        plvField.setBounds(95, 470, 590, 20);
-        plvField.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
-        add(plvField);
+        wordField.setBounds(95, 470, 590, 20);
+        wordField.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+        add(wordField);
 
-        plv.setBounds(20, 470, 70, 20);
-        add(plv);
+        wordLabel.setBounds(20, 470, 70, 20);
+        add(wordLabel);
 
         validateButton.setBounds(700, 470, 80, 20);
         validateButton.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
@@ -76,7 +80,9 @@ public class ComparisonView extends JFrame {
     public void setValidateButton() {
         validateButton.addActionListener(event -> {
             try {
-
+                String sequence = wordField.getText();
+                validateSequence(afdAutomaton.getAlphabet(), sequence);
+                new AFDStepView(new AFDRuleRepository(), afdAutomaton, sequence);
             } catch (Exception exception) {
                 JOptionPane.showMessageDialog(this, exception.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             }
@@ -88,6 +94,21 @@ public class ComparisonView extends JFrame {
             new InitialView();
             dispose();
         });
+    }
+
+    public void validateSequence(String alphabet, String sequence) throws Exception {
+        for (int i = 0; i < sequence.length(); i++) {
+            boolean found = false;
+            for (int j = 0; j < alphabet.length(); j++) {
+                if (sequence.charAt(i) == alphabet.charAt(j)) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                throw new Exception("Elementos da cadeia devem pertencer ao alfabeto!");
+            }
+        }
     }
 
 }

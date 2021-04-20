@@ -10,15 +10,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-public class StepView extends JFrame{
-
-    private final JTextField textField;
+public class AFDStepView extends JFrame{
 
     private final JPanel panel = new JPanel();
     private final JButton beforeButton = new JButton("<<<");
     private final JButton nextButton = new JButton(">>>");
-    private final JButton finishButton = new JButton("FINALIZAR");
-    private final JButton sendButton = new JButton("ENVIAR");
+    private final JButton finishButton = new JButton("VALIDAR");
 
     private final AFDAutomaton automaton;
     private final AFDRuleService ruleService;
@@ -26,35 +23,32 @@ public class StepView extends JFrame{
 
     String sequence;
     List<AFDRule> coveredRules;
-    int sequenceIndex = -1;
+    int sequenceIndex = 0;
     boolean validSequenceFlag;
 
-    public StepView(AFDRuleRepository ruleRepository, AFDAutomaton automaton) {
+    public AFDStepView(AFDRuleRepository ruleRepository, AFDAutomaton automaton, String sequence) {
+        this.sequence = sequence;
         this.ruleService = new AFDRuleService(ruleRepository);
         this.automatonService = new AFDService(ruleRepository);
         this.automaton = automaton;
+        processSequence();
 
         setVisible(true);
         setResizable(false);
-        setSize(400, 335);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(400, 300);
         setLayout(null);
 
-        JLabel text = new JLabel("CADEIA:");
-        text.setBounds(20, 10, 55, 30);
+        JLabel text = new JLabel("AUTÔMATO FINITO DETERMINÍSTICO");
+        text.setBounds(70, 10, 250, 30);
         add(text);
-
-        textField = new JTextField();
-        textField.setBounds(78, 15, 205, 20);
-        add(textField);
 
         panel.setBounds(20, 50, 360, 150);
         panel.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 128)));
         panel.setBackground(new Color(255, 255, 255));
+        JPanel aux = new JPanel();
+        aux.setVisible(false);
+        panel.add(aux);
         add(panel);
-
-        sendButton.setBounds(290, 15 , 90, 20);
-        add(sendButton);
 
         beforeButton.setBorder(BorderFactory.createEtchedBorder());
         beforeButton.setBounds(20, 220, 60, 20);
@@ -68,37 +62,9 @@ public class StepView extends JFrame{
         nextButton.setBounds(320, 220, 60, 20);
         add(nextButton);
 
-        enableOutputButtons(false);
-
-        this.sendButtonAction();
         this.beforeButtonAction();
         this.nextButtonAction();
         this.finishButtonAction();
-    }
-
-    private void enableOutputButtons(boolean flag) {
-        beforeButton.setEnabled(flag);
-        finishButton.setEnabled(flag);
-        nextButton.setEnabled(flag);
-    }
-
-    public void sendButtonAction() {
-        sendButton.addActionListener(event -> {
-            try {
-                clean();
-                sequence = textField.getText();
-                automatonService.validateSequence(automaton.getAlphabet(), sequence);
-
-                processSequence();
-
-                enableOutputButtons(true);
-                sequenceIndex = 0;
-                panel.add(resultPanel(coveredRules));
-                panel.repaint();
-            } catch (Exception exception) {
-                JOptionPane.showMessageDialog(this, exception.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-            }
-        });
     }
 
     private void processSequence() {
@@ -112,7 +78,7 @@ public class StepView extends JFrame{
 
     public void beforeButtonAction() {
         beforeButton.addActionListener(e -> {
-            if(sequenceIndex != 0 && sequenceIndex != -1){
+            if(sequenceIndex != 0){
                 sequenceIndex = sequenceIndex - 1;
                 panel.remove(0);
                 panel.add(resultPanel(coveredRules));
@@ -123,7 +89,7 @@ public class StepView extends JFrame{
 
     public void nextButtonAction() {
         nextButton.addActionListener(e -> {
-            if(sequenceIndex != (coveredRules.size() - 1) && sequenceIndex != -1){
+            if(sequenceIndex != (coveredRules.size() - 1)){
                 sequenceIndex = sequenceIndex + 1;
                 panel.remove(0);
                 panel.add(resultPanel(coveredRules));
@@ -143,8 +109,6 @@ public class StepView extends JFrame{
                         "Cadeia não pertence à linguagem representada pelo automato!", "Não pertence :(",
                         JOptionPane.WARNING_MESSAGE);
             }
-            clean();
-            enableOutputButtons(false);
         });
     }
 
@@ -179,7 +143,8 @@ public class StepView extends JFrame{
             currentStateLabel.setForeground(setColorByAcceptance(rule.getTargetState()));
             currentStateLabel.setText("Estado atual: " + rule.getTargetState());
 
-            ruleLabel.setBounds(140, 110, 100, 20);
+            ruleLabel.setBounds(10, 110, 345, 20);
+            ruleLabel.setHorizontalTextPosition(SwingConstants.CENTER);
             ruleLabel.setText("{"
                     + rule.getSourceState() + ", "
                     + rule.getSymbol() + " ,"
@@ -209,17 +174,5 @@ public class StepView extends JFrame{
         return sequence.substring(0, sequenceIndex) +
                 "[" + sequence.charAt(sequenceIndex) + "]"
                 + sequence.substring(sequenceIndex +1);
-    }
-
-    private void clean(){
-
-        if(sequenceIndex != -1){
-            panel.remove(0);
-            panel.repaint();
-        }
-
-        coveredRules = null;
-        ruleService.cleanCoveredRules();
-        sequenceIndex = -1;
     }
 }

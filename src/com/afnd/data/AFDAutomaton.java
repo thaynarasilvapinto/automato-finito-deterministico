@@ -2,7 +2,6 @@ package com.afnd.data;
 
 import java.util.List;
 
-
 public class AFDAutomaton {
     private final List<String> states;
     private final String alphabet;
