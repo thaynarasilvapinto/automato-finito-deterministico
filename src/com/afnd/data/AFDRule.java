@@ -1,9 +1,9 @@
 package com.afnd.data;
 
 public class AFDRule {
-    private final String sourceState;
+    private String sourceState;
     private final char symbol;
-    private final String targetState;
+    private String targetState;
 
     public AFDRule(String sourceState, char symbol, String targetState) {
         this.sourceState = sourceState;
@@ -25,6 +25,12 @@ public class AFDRule {
 
     @Override
     public String toString() {
+        if(sourceState.equals("")) {
+            sourceState = "qV";
+        }
+        if (targetState.equals("")) {
+            targetState = "qV";
+        }
         return sourceState + " \u00D7 " + symbol + " \u2192 " + targetState;
     }
 }

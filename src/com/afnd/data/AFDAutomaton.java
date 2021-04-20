@@ -39,6 +39,20 @@ public class AFDAutomaton {
 
     @Override
     public String toString() {
+        StringBuilder outputStates = new StringBuilder();
+        outputStates.append("[");
+        for(int i = 0; i < states.size(); i++) {
+            if (states.get(i).equals("")) {
+                outputStates.append("qV");
+            } else {
+                outputStates.append(states.get(i));
+            }
+            if (i != states.size()-1) {
+                outputStates.append(", ");
+            }
+        }
+        outputStates.append("]");
+
         StringBuilder outputRules = new StringBuilder();
         outputRules.append("[\n");
         for (AFDRule rule : rules) {
@@ -56,10 +70,24 @@ public class AFDAutomaton {
         }
         outputAlphabet.append("]");
 
-        return "Q: " + states + ",\n" +
+        StringBuilder outputFinals = new StringBuilder();
+        outputFinals.append("[");
+        for(int i = 0; i < finalStates.size(); i++) {
+            if (finalStates.get(i).equals("")) {
+                outputFinals.append("qV");
+            } else {
+                outputFinals.append(states.get(i));
+            }
+            if (i != finalStates.size()-1) {
+                outputFinals.append(", ");
+            }
+        }
+        outputFinals.append("]");
+
+        return "Q: " + outputStates + ",\n" +
                 "\u03A3: " + outputAlphabet + ",\n" +
                 "\u03B4: " + outputRules + ",\n" +
                 "q\u2080: " + initialState + ",\n" +
-                "F: " + finalStates + "\n";
+                "F: " + outputFinals + "\n";
     }
 }
