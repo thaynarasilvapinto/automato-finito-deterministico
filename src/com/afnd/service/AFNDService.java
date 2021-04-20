@@ -22,7 +22,6 @@ public class AFNDService {
     public void processSequence(List<Character> sequence,
                                 String currentState,
                                 List<AFNDRule> rules,
-                                int position,
                                 List<String> finalStates) throws Exception {
 
         int aux = 0;
@@ -46,7 +45,6 @@ public class AFNDService {
                             sequence.subList(aux, sequence.size()),
                             targetStates,
                             rules,
-                            position,
                             finalStates); //recursão
                 }
             }

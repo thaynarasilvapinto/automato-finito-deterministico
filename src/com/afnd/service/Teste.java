@@ -49,7 +49,7 @@ public class Teste {
         finalStates.add("q3");
 
 
-        service.processSequence(sequence, "q0", rules, 0, finalStates);
+        service.processSequence(sequence, "q0", rules, finalStates);
         List<AFNDRule> response = service.getStackSequence();
         System.out.println(service.getSequenceValidate());
     }
