@@ -51,11 +51,6 @@ public class AFNDService {
             aux = aux + 1;
 
             AFNDRule applicableRule = afndRuleService.getApplicableRule(rules, currentState, currentSymbol);
-            System.out.println("-------------");
-            System.out.println(applicableRule.getSourceState());
-            System.out.println(applicableRule.getSymbol());
-            System.out.println(applicableRule.getTargetStates());
-            System.out.println("-------------");
 
             afndRuleService.addCoveredRule(applicableRule);
 
@@ -78,9 +73,6 @@ public class AFNDService {
             }
         }
         isAcceptableState(finalStates);
-        System.out.println("-------------");
-        System.out.println(sequenceValidate);
-        System.out.println("-------------");
     }
 
     private void isAcceptableState(List<String> finalStates){
