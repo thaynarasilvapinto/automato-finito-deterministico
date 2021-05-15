@@ -24,6 +24,11 @@ public class AFNDService {
             List<String> initialState = new ArrayList<>();
             initialState.add(automaton.getInitialState());
             sequenceValidate = isAcceptable(initialState, automaton.getFinalStates());
+            if(!sequenceValidate){
+                AFNDRule applicableRule = afndRuleService.getApplicableRuleEmpty(automaton.getRules(), automaton.getInitialState());
+                sequenceValidate = isAcceptable(applicableRule.getTargetStates(), automaton.getFinalStates());
+            }
+
         }else{
             processSequence(sequenceRequest,
                     automaton.getInitialState(),
