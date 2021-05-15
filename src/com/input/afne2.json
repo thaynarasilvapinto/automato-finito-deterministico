@@ -1,0 +1,67 @@
+{
+  "estados": ["q0", "q1", "q2", "q3", "q4"],
+  "alfabeto": "10",
+  "regras": [
+    {
+      "estadoPartida": "q0",
+      "simbolo": "ε",
+      "estadosDestino": ["q1", "q3"]
+    },{
+      "estadoPartida": "q1",
+      "simbolo": "0",
+      "estadosDestino": ["q2"]
+    },{
+      "estadoPartida": "q1",
+      "simbolo": "1",
+      "estadosDestino": ["q1"]
+    },{
+      "estadoPartida": "q2",
+      "simbolo": "1",
+      "estadosDestino": ["q2"]
+    },{
+      "estadoPartida": "q2",
+      "simbolo": "0",
+      "estadosDestino": ["q1"]
+    },{
+      "estadoPartida": "q3",
+      "simbolo": "1",
+      "estadosDestino": ["q4"]
+    },{
+      "estadoPartida": "q3",
+      "simbolo": "0",
+      "estadosDestino": ["q3"]
+    },{
+      "estadoPartida": "q4",
+      "simbolo": "1",
+      "estadosDestino": ["q3"]
+    },{
+      "estadoPartida": "q4",
+      "simbolo": "0",
+      "estadosDestino": ["q4"]
+    },{
+      "estadoPartida": "q4",
+      "simbolo": "ε",
+      "estadosDestino": []
+    },{
+      "estadoPartida": "q3",
+      "simbolo": "ε",
+      "estadosDestino": []
+    },{
+      "estadoPartida": "q2",
+      "simbolo": "ε",
+      "estadosDestino": []
+    },
+    {
+      "estadoPartida": "q2",
+      "simbolo": "ε",
+      "estadosDestino": []
+    },
+    {
+      "estadoPartida": "q2",
+      "simbolo": "ε",
+      "estadosDestino": []
+    }
+  ],
+  "estadoInicial": "q0",
+  "estadosFinais": ["q1", "q3"]
+}
