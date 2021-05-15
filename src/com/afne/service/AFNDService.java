@@ -139,4 +139,8 @@ public class AFNDService {
     public AFNDRuleService getAfndRuleService() {
         return afndRuleService;
     }
+
+    public void setSequenceValidate(boolean sequenceValidate) {
+        this.sequenceValidate = sequenceValidate;
+    }
 }

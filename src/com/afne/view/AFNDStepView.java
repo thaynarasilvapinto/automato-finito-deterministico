@@ -25,7 +25,7 @@ public class AFNDStepView extends JFrame{
 
     String sequence;
     List<AFNDRule> coveredRules;
-    int sequenceIndex = 0;
+    int sequenceIndex = -1;
     boolean validSequenceFlag;
 
     public AFNDStepView(AFNDAutomaton automaton) {
@@ -179,6 +179,7 @@ public class AFNDStepView extends JFrame{
         } else {
             AFNDRule rule = rules.get(sequenceIndex);
 
+            sequenceLabel.setText("CADEIA: " + sequence);
             currentStateLabel.setText("Estado atual: " + rule.getTargetStates());
 
             ruleLabel.setBounds(10, 110, 345, 20);
@@ -203,14 +204,15 @@ public class AFNDStepView extends JFrame{
 
     private void clean(){
 
-        if(sequenceIndex != 0){
+        if(sequenceIndex != -1){
             panel.remove(0);
-            panel.repaint();
+            coveredRules = null;
+            automatonService.getAfndRuleService().cleanCoveredRules();
+            automatonService.setSequenceValidate(false);
         }
-
         coveredRules = null;
         automatonService.getAfndRuleService().cleanCoveredRules();
-        sequenceIndex = 0;
+        automatonService.setSequenceValidate(false);
     }
 
 }
