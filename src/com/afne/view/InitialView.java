@@ -14,7 +14,7 @@ import static javax.swing.SwingConstants.CENTER;
 public class InitialView extends JFrame implements ActionListener {
 
     InputFileService inputFileService = new InputFileService();
-    JLabel titleLabel = new JLabel("Autômato Finito NÃO Determinístico");
+    JLabel titleLabel = new JLabel("Autômato Finito NÃO Determinístico com transições vazias");
     JButton openFileButton = new JButton("Arquivo...");
     JButton aboutButton = new JButton("Sobre...");
 
