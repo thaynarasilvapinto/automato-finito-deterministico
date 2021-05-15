@@ -14,6 +14,13 @@ public class AFNDRuleService {
         return rules.stream()
                 .filter(rule -> isRuleApplicable(rule, currentState, currentSymbol))
                 .findFirst()
+                .orElse(getApplicableRuleEmpty(rules, currentState));
+    }
+
+    public AFNDRule getApplicableRuleEmpty(List<AFNDRule> rules, String currentState) throws Exception {
+        return rules.stream()
+                .filter(rule -> isRuleApplicable(rule, currentState, 'ε'))
+                .findFirst()
                 .orElseThrow(() -> new Exception("Regra não encontrada"));
     }
 

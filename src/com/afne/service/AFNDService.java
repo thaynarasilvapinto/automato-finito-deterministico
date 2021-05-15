@@ -51,7 +51,11 @@ public class AFNDService {
             AFNDRule applicableRule = afndRuleService.getApplicableRule(rules, currentState, currentSymbol);
 
             afndRuleService.addCoveredRule(applicableRule);
-
+            System.out.println("-------");
+            System.out.println(applicableRule.getSourceState());
+            System.out.println(applicableRule.getSymbol());
+            System.out.println(applicableRule.getTargetStates());
+            System.out.println("-------");
             if(applicableRule.getTargetStates().size() > 1) {
                 for (String targetStates : applicableRule.getTargetStates()) {
                     if(sequence.subList(aux, sequence.size()).size() != 0){
@@ -71,6 +75,9 @@ public class AFNDService {
             }
         }
         isAcceptableState(finalStates);
+        System.out.println("------------------------------");
+        System.out.println(sequenceValidate);
+        System.out.println("------------------------------");
     }
 
     private void isAcceptableState(List<String> finalStates){
@@ -126,8 +133,6 @@ public class AFNDService {
             }
             if(!states.contains(rule.getSourceState()))
                 throw new Exception("Estados das regras devem pertencer ao conjunto de estados!");
-            if(alphabet.indexOf(rule.getSymbol()) == -1)
-                throw new Exception("Símbolos das regras devem pertencer ao alfabeto!");
         }
     }
 

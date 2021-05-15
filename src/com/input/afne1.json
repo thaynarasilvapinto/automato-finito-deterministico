@@ -1,0 +1,25 @@
+{
+  "estados": ["q0", "q1"],
+  "alfabeto": "ab",
+  "regras": [
+    {
+      "estadoPartida": "q0",
+      "simbolo": "a",
+      "estadosDestino": ["q0"]
+    },{
+      "estadoPartida": "q0",
+      "simbolo": "ε",
+      "estadosDestino": ["q1"]
+    },{
+      "estadoPartida": "q1",
+      "simbolo": "ε",
+      "estadosDestino": []
+    },{
+      "estadoPartida": "q1",
+      "simbolo": "b",
+      "estadosDestino": ["q1"]
+    }
+  ],
+  "estadoInicial": "q0",
+  "estadosFinais": ["q1"]
+}
