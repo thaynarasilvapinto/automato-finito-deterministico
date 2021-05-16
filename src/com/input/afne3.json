@@ -1,0 +1,108 @@
+{
+  "estados": ["q0", "q1", "q2", "q3", "q4", "q5", "q6", "q7"],
+  "alfabeto": "ab",
+  "regras": [
+    {
+      "estadoPartida": "q0",
+      "simbolo": "ε",
+      "estadosDestino": ["q1"]
+    },{
+      "estadoPartida": "q1",
+      "simbolo": "ε",
+      "estadosDestino": ["q2","q6"]
+    },{
+      "estadoPartida": "q2",
+      "simbolo": "a",
+      "estadosDestino": ["q3"]
+    },{
+      "estadoPartida": "q3",
+      "simbolo": "ε",
+      "estadosDestino": ["q4"]
+    },{
+      "estadoPartida": "q4",
+      "simbolo": "b",
+      "estadosDestino": ["q5"]
+    },{
+      "estadoPartida": "q5",
+      "simbolo": "ε",
+      "estadosDestino": ["q1"]
+    },{
+      "estadoPartida": "q6",
+      "simbolo": "a",
+      "estadosDestino": ["q7"]
+    },{
+      "estadoPartida": "q7",
+      "simbolo": "ε",
+      "estadosDestino": ["q1"]
+    },{
+      "estadoPartida": "q4",
+      "simbolo": "0",
+      "estadosDestino": ["q4"]
+    },
+    {
+      "estadoPartida": "q0",
+      "simbolo": "a",
+      "estadosDestino": []
+    },
+    {
+      "estadoPartida": "q0",
+      "simbolo": "b",
+      "estadosDestino": []
+    },
+    {
+      "estadoPartida": "q1",
+      "simbolo": "a",
+      "estadosDestino": []
+    },
+    {
+      "estadoPartida": "q1",
+      "simbolo": "b",
+      "estadosDestino": []
+    },
+    {
+      "estadoPartida": "q7",
+      "simbolo": "a",
+      "estadosDestino": []
+    },{
+      "estadoPartida": "q7",
+      "simbolo": "b",
+      "estadosDestino": []
+    },{
+      "estadoPartida": "q5",
+      "simbolo": "a",
+      "estadosDestino": []
+    },
+    {
+      "estadoPartida": "q5",
+      "simbolo": "b",
+      "estadosDestino": []
+    },
+    {
+      "estadoPartida": "q3",
+      "simbolo": "a",
+      "estadosDestino": []
+    },
+    {
+      "estadoPartida": "q3",
+      "simbolo": "b",
+      "estadosDestino": []
+    },
+    {
+      "estadoPartida": "q2",
+      "simbolo": "ε",
+      "estadosDestino": []
+    },
+    {
+      "estadoPartida": "q4",
+      "simbolo": "ε",
+      "estadosDestino": []
+    },
+    {
+      "estadoPartida": "q6",
+      "simbolo": "ε",
+      "estadosDestino": []
+    }
+  ],
+  "estadoInicial": "q0",
+  "estadosFinais": ["q0", "q5","q7"]
+}

@@ -91,6 +91,7 @@ public class AFNDService {
         }
         isAcceptableState(finalStates);
         System.out.println("------------------------------");
+        System.out.println(afndRuleService.ruleRepository.coveredRules.size());
         System.out.println(sequenceValidate);
         System.out.println("------------------------------");
     }
