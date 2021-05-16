@@ -66,11 +66,20 @@ public class AFNDService {
             if(applicableRule.getTargetStates().size() > 1) {
                 for (String targetStates : applicableRule.getTargetStates()) {
                     if(sequence.subList(aux, sequence.size()).size() != 0){
-                        processSequence(
-                                sequence.subList(aux, sequence.size()),
-                                targetStates,
-                                rules,
-                                finalStates); //recursão
+
+                        if(applicableRule.getEmptyStateRule()){
+                            processSequence(
+                                    sequence,
+                                    targetStates,
+                                    rules,
+                                    finalStates); //recursão
+                        }else{
+                            processSequence(
+                                    sequence.subList(aux, sequence.size()),
+                                    targetStates,
+                                    rules,
+                                    finalStates); //recursão
+                        }
                     }
                 }
             }else{
