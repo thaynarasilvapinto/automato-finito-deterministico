@@ -164,16 +164,16 @@ public class AFNDStepView extends JFrame{
 
         JTextField sequenceLabel = new JTextField();
         JLabel currentStateLabel = new JLabel();
-        JLabel emptyStateRuleLabel = new JLabel();
+        //JLabel emptyStateRuleLabel = new JLabel();
         JLabel ruleLabel = new JLabel();
         JLabel acceptableStatesLabel = new JLabel();
 
         sequenceLabel.setBounds(10, 10, 345, 25);
-        emptyStateRuleLabel.setBounds(10, 20, 345, 25);
+        //emptyStateRuleLabel.setBounds(10, 20, 345, 25);
         sequenceLabel.setBorder(BorderFactory.createLineBorder(Color.white));
 
         currentStateLabel.setBounds(10, 50, 345, 20);
-        acceptableStatesLabel.setBounds(10, 70, 345, 20);
+        //acceptableStatesLabel.setBounds(10, 40, 345, 20);
 
         if (rules.isEmpty()) {
             sequenceLabel.setText("Cadeia vazia");
@@ -184,7 +184,7 @@ public class AFNDStepView extends JFrame{
 
             sequenceLabel.setText("CADEIA: " + sequence);
             currentStateLabel.setText("Estado atual: " + rule.getTargetStates());
-            emptyStateRuleLabel.setText("Usou transição vazia: " + rule.getEmptyStateRule());
+            //emptyStateRuleLabel.setText("Usou transição vazia: " + rule.getEmptyStateRule());
 
             ruleLabel.setBounds(10, 110, 345, 20);
             ruleLabel.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -198,6 +198,7 @@ public class AFNDStepView extends JFrame{
 
         panel.add(sequenceLabel);
         panel.add(currentStateLabel);
+        //panel.add(emptyStateRuleLabel);
         panel.add(acceptableStatesLabel);
 
         panel.setBounds(1, 1, 345, 145);
