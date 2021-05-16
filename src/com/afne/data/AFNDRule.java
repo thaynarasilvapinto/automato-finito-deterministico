@@ -25,6 +25,10 @@ public class AFNDRule {
         return targetState;
     }
 
+    public char setSymbol(char symbol) {
+        return symbol = symbol;
+    }
+
     @Override
     public String toString() {
         return sourceState + " \u00D7 " + symbol + " \u2192 " + targetState;

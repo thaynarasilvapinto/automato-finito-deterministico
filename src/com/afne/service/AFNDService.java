@@ -2,6 +2,7 @@ package com.afne.service;
 
 import com.afne.data.AFNDAutomaton;
 import com.afne.data.AFNDRule;
+import com.afne.data.RuleDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +38,7 @@ public class AFNDService {
         }
     }
 
-    public List<AFNDRule> getStackSequence(){
+    public List<RuleDTO> getStackSequence(){
         return afndRuleService.ruleRepository.coveredRules;
     }
 
@@ -53,13 +54,14 @@ public class AFNDService {
 
         for (char currentSymbol : sequence) {
             aux = aux + 1;
-            AFNDRule applicableRule = afndRuleService.getApplicableRule(rules, currentState, currentSymbol);
+            RuleDTO applicableRule = afndRuleService.getApplicableRule(rules, currentState, currentSymbol);
 
             afndRuleService.addCoveredRule(applicableRule);
             System.out.println("-------");
             System.out.println(applicableRule.getSourceState());
             System.out.println(applicableRule.getSymbol());
             System.out.println(applicableRule.getTargetStates());
+            System.out.println(applicableRule.getEmptyStateRule());
             System.out.println("-------");
             if(applicableRule.getTargetStates().size() > 1) {
                 for (String targetStates : applicableRule.getTargetStates()) {

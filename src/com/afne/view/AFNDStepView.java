@@ -3,6 +3,7 @@ package com.afne.view;
 
 import com.afne.data.AFNDAutomaton;
 import com.afne.data.AFNDRule;
+import com.afne.data.RuleDTO;
 import com.afne.service.AFNDService;
 
 import javax.swing.*;
@@ -24,7 +25,7 @@ public class AFNDStepView extends JFrame{
     private final AFNDService automatonService;
 
     String sequence;
-    List<AFNDRule> coveredRules;
+    List<RuleDTO> coveredRules;
     int sequenceIndex = -1;
     boolean validSequenceFlag;
 
@@ -157,16 +158,18 @@ public class AFNDStepView extends JFrame{
         });
     }
 
-    private JPanel resultPanel(List<AFNDRule> rules) {
+    private JPanel resultPanel(List<RuleDTO> rules) {
 
         JPanel panel = new JPanel();
 
         JTextField sequenceLabel = new JTextField();
         JLabel currentStateLabel = new JLabel();
+        JLabel emptyStateRuleLabel = new JLabel();
         JLabel ruleLabel = new JLabel();
         JLabel acceptableStatesLabel = new JLabel();
 
         sequenceLabel.setBounds(10, 10, 345, 25);
+        emptyStateRuleLabel.setBounds(10, 20, 345, 25);
         sequenceLabel.setBorder(BorderFactory.createLineBorder(Color.white));
 
         currentStateLabel.setBounds(10, 50, 345, 20);
@@ -177,10 +180,11 @@ public class AFNDStepView extends JFrame{
             sequenceLabel.setFont(new Font(null, Font.PLAIN, 15));
             currentStateLabel.setText("Estado inicial: " + automaton.getInitialState());
         } else {
-            AFNDRule rule = rules.get(sequenceIndex);
+            RuleDTO rule = rules.get(sequenceIndex);
 
             sequenceLabel.setText("CADEIA: " + sequence);
             currentStateLabel.setText("Estado atual: " + rule.getTargetStates());
+            emptyStateRuleLabel.setText("Usou transição vazia: " + rule.getEmptyStateRule());
 
             ruleLabel.setBounds(10, 110, 345, 20);
             ruleLabel.setHorizontalTextPosition(SwingConstants.CENTER);

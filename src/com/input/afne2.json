@@ -38,6 +38,16 @@
       "estadoPartida": "q4",
       "simbolo": "0",
       "estadosDestino": ["q4"]
+    },
+    {
+      "estadoPartida": "q0",
+      "simbolo": "0",
+      "estadosDestino": []
+    },
+    {
+      "estadoPartida": "q0",
+      "simbolo": "1",
+      "estadosDestino": []
     },{
       "estadoPartida": "q4",
       "simbolo": "ε",

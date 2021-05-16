@@ -1,12 +1,12 @@
 package com.afne.repository;
 
-import com.afne.data.AFNDRule;
+import com.afne.data.RuleDTO;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RuleAFNDRepository {
 
-    public List<AFNDRule> coveredRules = new ArrayList<>();
+    public List<RuleDTO> coveredRules = new ArrayList<>();
 
 }

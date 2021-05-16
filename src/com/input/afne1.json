@@ -11,6 +11,10 @@
       "simbolo": "ε",
       "estadosDestino": ["q1"]
     },{
+      "estadoPartida": "q0",
+      "simbolo": "b",
+      "estadosDestino": []
+    },{
       "estadoPartida": "q1",
       "simbolo": "ε",
       "estadosDestino": []
@@ -18,6 +22,10 @@
       "estadoPartida": "q1",
       "simbolo": "b",
       "estadosDestino": ["q1"]
+    },{
+      "estadoPartida": "q1",
+      "simbolo": "a",
+      "estadosDestino": []
     }
   ],
   "estadoInicial": "q0",

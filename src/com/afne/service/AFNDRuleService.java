@@ -1,6 +1,7 @@
 package com.afne.service;
 
 import com.afne.data.AFNDRule;
+import com.afne.data.RuleDTO;
 import com.afne.repository.RuleAFNDRepository;
 
 import java.util.ArrayList;
@@ -10,11 +11,32 @@ public class AFNDRuleService {
 
     RuleAFNDRepository ruleRepository = new RuleAFNDRepository();
 
-    public AFNDRule getApplicableRule(List<AFNDRule> rules, String currentState, char currentSymbol) throws Exception {
-        return rules.stream()
+    public RuleDTO getApplicableRule(List<AFNDRule> rules, String currentState, char currentSymbol) throws Exception {
+
+        AFNDRule afndRule =  rules.stream()
                 .filter(rule -> isRuleApplicable(rule, currentState, currentSymbol))
                 .findFirst()
-                .orElse(getApplicableRuleEmpty(rules, currentState));
+                .orElseThrow(() -> new Exception("Regra não encontrada"));
+
+        if(afndRule.getTargetStates().isEmpty()){
+            AFNDRule afndRuleEpsilon = getApplicableRuleEmpty(rules, currentState);
+            if (!afndRuleEpsilon.getTargetStates().isEmpty()) {
+                return dtoRuleDTO(afndRuleEpsilon, currentSymbol);
+            } else {
+                return dtoRuleDTO(afndRule, currentSymbol);
+            }
+        }
+        return dtoRuleDTO(afndRule, currentSymbol);
+    }
+
+    private RuleDTO dtoRuleDTO(AFNDRule applicableRule, char currentSymbol){
+        RuleDTO ruleDTO;
+        if(applicableRule.getSymbol() == 'ε'){
+            ruleDTO = new RuleDTO(applicableRule.getSourceState(), currentSymbol, applicableRule.getTargetStates(), true);
+        }else{
+            ruleDTO = new RuleDTO(applicableRule.getSourceState(), applicableRule.getSymbol(), applicableRule.getTargetStates(), false);
+        }
+        return ruleDTO;
     }
 
     public AFNDRule getApplicableRuleEmpty(List<AFNDRule> rules, String currentState) throws Exception {
@@ -28,8 +50,8 @@ public class AFNDRuleService {
         return rule.getSourceState().equals(currentState) && rule.getSymbol() == currentSymbol;
     }
 
-    public void addCoveredRule(AFNDRule applicableRule) {
-        ruleRepository.coveredRules.add(applicableRule);
+    public void addCoveredRule(RuleDTO ruleDTO) {
+        ruleRepository.coveredRules.add(ruleDTO);
     }
 
     public void cleanCoveredRules() {
