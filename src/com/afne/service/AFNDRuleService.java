@@ -11,32 +11,18 @@ public class AFNDRuleService {
 
     RuleAFNDRepository ruleRepository = new RuleAFNDRepository();
 
-    public RuleDTO getApplicableRule(List<AFNDRule> rules, String currentState, char currentSymbol) throws Exception {
+    public List<AFNDRule> getApplicableRule(List<AFNDRule> rules, String currentState, char currentSymbol) throws Exception {
 
         AFNDRule afndRule =  rules.stream()
                 .filter(rule -> isRuleApplicable(rule, currentState, currentSymbol))
                 .findFirst()
                 .orElseThrow(() -> new Exception("Regra não encontrada"));
 
-        if(afndRule.getTargetStates().isEmpty()){
-            AFNDRule afndRuleEpsilon = getApplicableRuleEmpty(rules, currentState);
-            if (!afndRuleEpsilon.getTargetStates().isEmpty()) {
-                return dtoRuleDTO(afndRuleEpsilon, currentSymbol);
-            } else {
-                return dtoRuleDTO(afndRule, currentSymbol);
-            }
-        }
-        return dtoRuleDTO(afndRule, currentSymbol);
-    }
+        List<AFNDRule> afndRules = new ArrayList<>();
+        afndRules.add(getApplicableRuleEmpty(rules, currentState));
+        afndRules.add(afndRule);
 
-    private RuleDTO dtoRuleDTO(AFNDRule applicableRule, char currentSymbol){
-        RuleDTO ruleDTO;
-        if(applicableRule.getSymbol() == 'ε'){
-            ruleDTO = new RuleDTO(applicableRule.getSourceState(), currentSymbol, applicableRule.getTargetStates(), true);
-        }else{
-            ruleDTO = new RuleDTO(applicableRule.getSourceState(), applicableRule.getSymbol(), applicableRule.getTargetStates(), false);
-        }
-        return ruleDTO;
+        return afndRules;
     }
 
     public AFNDRule getApplicableRuleEmpty(List<AFNDRule> rules, String currentState) throws Exception {

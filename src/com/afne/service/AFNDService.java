@@ -54,37 +54,40 @@ public class AFNDService {
 
         for (char currentSymbol : sequence) {
             aux = aux + 1;
-            RuleDTO applicableRule = afndRuleService.getApplicableRule(rules, currentState, currentSymbol);
 
-            afndRuleService.addCoveredRule(applicableRule);
-            System.out.println("-------");
-            System.out.println(applicableRule.getSourceState());
-            System.out.println(applicableRule.getSymbol());
-            System.out.println(applicableRule.getTargetStates());
-            System.out.println(applicableRule.getEmptyStateRule());
-            System.out.println("-------");
-            if(applicableRule.getTargetStates().size() > 1) {
-                for (String targetStates : applicableRule.getTargetStates()) {
-                        if(applicableRule.getEmptyStateRule()){
+            List<AFNDRule> applicableRule = afndRuleService.getApplicableRule(rules, currentState, currentSymbol);
+
+            List<String> targetStates = new ArrayList<>();
+            for (AFNDRule afndRule: applicableRule) {
+                targetStates.addAll(afndRule.getTargetStates());
+            }
+
+            afndRuleService.addCoveredRule(dtoRuleDTO(applicableRule, currentSymbol));
+
+            if(targetStates.size() > 1) {
+                for(AFNDRule afndRule: applicableRule){
+                    for(String targetState : afndRule.getTargetStates()){
+                        if(afndRule.getSymbol() == 'ε'){
                             if(sequence.size() != 0)
                                 processSequence(
                                         sequence,
-                                        targetStates,
+                                        targetState,
                                         rules,
                                         finalStates); //recursão
                         }else{
                             if(sequence.subList(aux, sequence.size()).size() != 0)
                                 processSequence(
                                         sequence.subList(aux, sequence.size()),
-                                        targetStates,
+                                        targetState,
                                         rules,
                                         finalStates); //recursão
                         }
+                    }
                 }
             }else{
-                if(applicableRule.getTargetStates().size() == 1) {
-                    currentState = applicableRule.getTargetStates().get(0);
-                }else if (applicableRule.getTargetStates().isEmpty()){
+                if(targetStates.size() == 1) {
+                    currentState = targetStates.get(0);
+                }else {
                     break;
                 }
             }
@@ -107,6 +110,27 @@ public class AFNDService {
         return false;
     }
 
+    private RuleDTO dtoRuleDTO(List<AFNDRule> applicableRules, char currentSymbol){
+        boolean emptyStateRule = false;
+        List<String> targetState = new ArrayList<>();
+        String sourceState = null;
+
+        for (AFNDRule afndRule : applicableRules) {
+            if(afndRule.getSymbol() == 'ε' && !afndRule.getTargetStates().isEmpty()){
+                emptyStateRule = true;
+            }
+            targetState.addAll(afndRule.getTargetStates());
+            sourceState = afndRule.getSourceState();
+        }
+        RuleDTO applicableRule = new RuleDTO(sourceState, currentSymbol, targetState, emptyStateRule);
+        System.out.println("-------");
+        System.out.println(applicableRule.getSourceState());
+        System.out.println(applicableRule.getSymbol());
+        System.out.println(applicableRule.getTargetStates());
+        System.out.println(applicableRule.getEmptyStateRule());
+        System.out.println("-------");
+        return applicableRule;
+    }
 
     public void validateAutomaton(AFNDAutomaton automaton) throws Exception {
         List<String> states = automaton.getStates();
